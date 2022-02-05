@@ -3,7 +3,8 @@ const router = express.Router();
 
 const db = require("../module/dbmodule");
 
-/* /get */
+/* /get
+* 전체 랭킹 정보를 반환 */
 router.get('/get', function(req, res, next) {
     db((err,connection) =>{
         connection.query('select * from relay.ranking limit 10;',(error, rows)=>{
@@ -14,7 +15,8 @@ router.get('/get', function(req, res, next) {
     })
 });
 
-/* /update?chain=70&uid=5 */
+/* /update?chain=70&uid=5
+*  랭킹 정보 업데이트 */
 router.get('/update', function(req, res, next) {
     let chain = parseInt(req.query.chain);
     let user = parseInt(req.query.uid);
