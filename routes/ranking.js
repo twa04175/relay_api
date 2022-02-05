@@ -42,6 +42,7 @@ router.get('/update', function(req, res, next) {
                             "where `rank` = ?;\n";
                         let value = [user, user, chain, rank];
                         connection.query(query, value, (error, rows) =>{
+                            connection.release();
                             res.send("update Rank");
                         });
                     }else {
@@ -54,6 +55,7 @@ router.get('/update', function(req, res, next) {
                         let value = [i-1, i-1, i-1, i];
                         connection.query(query, value, (error, rows) =>{
                             //console.log('sort rank')
+                            connection.release();
                         });
                     }
                 }
