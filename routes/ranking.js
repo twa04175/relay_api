@@ -10,6 +10,7 @@ router.get('/get', function(req, res, next) {
         connection.query('select * from relay.ranking limit 10;',(error, rows)=>{
             if(error) throw error;
             console.log('Ranking info is : ', rows);
+            connection.release();
             res.send(rows);
         });
     })

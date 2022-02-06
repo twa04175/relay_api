@@ -10,6 +10,7 @@ router.get('/get', function(req, res, next) {
     db((err,connection) =>{
         connection.query(query,rid,(error, rows)=>{
             if(error) throw error;
+            connection.release();
             res.send(rows);
         });
     })

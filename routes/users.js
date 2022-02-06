@@ -106,4 +106,30 @@ router.get('/join', function(req, res, next) {
   })
 });
 
+
+router.get('/get', function (req,res) {
+  let query = "select * from relay.user_info where user_info.uid in (";
+  const uid = req.query.uid.split(',');
+  for (let i = 0; i < uid.length; i++) {
+
+    if (i == uid.length-1) {
+      query += "?)";
+    } else {
+      query += "?,";
+    }
+  }
+
+  console.log(query);
+
+  db((err, connection) => {
+    connection.query(query, uid, (error, rows) => {
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE'); // If needed
+      res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type'); // If needed
+      res.setHeader('Access-Control-Allow-Credentials', true); // If needed
+      res.send(rows);
+    });
+  });
+});
+
 module.exports = router;
